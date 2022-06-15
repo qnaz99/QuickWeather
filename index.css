@@ -1,0 +1,31 @@
+
+#all{
+    color : gray;
+    
+}
+
+.flexcont {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+#temp{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30pt;
+
+}
+.exp{
+    font-size: 20pt;
+    text-align: center;
+    margin: 1%;
+}
+#time{
+    font-size: 15pt;
+    position : fixed;
+    right: 0;
+    padding-right: 10px;
+}
+#icon{
+    height : 100px;
+}
