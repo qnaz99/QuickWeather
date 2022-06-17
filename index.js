@@ -19,6 +19,7 @@ fl = document.getElementById("fl");
 icon = document.getElementById("icon");
 wind = document.getElementById("wind");
 time = document.getElementById("time");
+loc = document.getElementById("loc");
 sunrise = document.getElementById("sunrise");
 sunset = document.getElementById("sunset");
 
@@ -111,23 +112,32 @@ function test(){
                 console.log(city);
 
                 if (!isNight){
-                    searchUrl = 'https://api.pexels.com/v1/search?query=' + city + '&per_page=1'
+                    if(window.innerHeight > window.innerWidth){
+                        searchUrl = 'https://api.pexels.com/v1/search?query=' + city + '&per_page=1&orientation=portrait'
+                    }
+                    else{
+                        searchUrl = 'https://api.pexels.com/v1/search?query=' + city + '&per_page=1&orientation=landscape'
+                    }
+                    
                 }
                 else{
-                    searchUrl = 'https://api.pexels.com/v1/search?query=' + city + ' Night&per_page=1'
+                    if(window.innerHeight > window.innerWidth){
+                        searchUrl = 'https://api.pexels.com/v1/search?query=' + city + ' Night&per_page=1&orientation=portrait'
+                    }
+                    else{
+                        searchUrl = 'https://api.pexels.com/v1/search?query=' + city + ' Night&per_page=1&orientation=landscape'
+                    }
                 }
                 
                 fetch (searchUrl,{ method: 'GET', headers: {Accept: 'application/json', Authorization: pexelKey}}).then((backgroundData) =>{
                     return backgroundData.json();
                 }).then((imageData) => {
-                    console.log(imageData);
-                    
+                    //console.log(imageData);
                     backgroundurl = imageData.photos[0].src.original;
                     document.getElementById("ht").style.backgroundImage = "url(" + backgroundurl +")";
                     document.getElementById("ht").style.backgroundSize = "cover";
                     document.getElementById("ht").style.backgroundRepeat = "no-repeat";
-
-                    
+  
                 });
                 //client.photos.search({ city, per_page: 1}).then((backgroundData) =>{
                 //    console.log(backgroundData);
