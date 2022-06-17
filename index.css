@@ -1,4 +1,6 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@100;200;300;400;500;600;700;800&display=swap');
+
 
 
 .flexcont {
@@ -8,22 +10,30 @@
   }
 
 #temp{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 30pt;
-    text-shadow: 2px 1px black;
+    font-family: 'Anek Malayalam', sans-serif;
+    font-size: 3vw;
+    text-shadow: 2px 2px black;
     opacity: 0.8;
     color : white;
+    font-weight: 400;
+    margin-bottom: 0;
+    
 
     
     
 
 }
 .exp{
-    font-size: 20pt;
+    font-size: 2vw;
+    
     text-align: center;
     margin: 1%;
     color : white;
-    opacity: 0.8;
+    opacity: 0.9;
+    font-family: 'Anek Malayalam', sans-serif;
+    
+    font-weight: 200;
+    text-shadow: 3px 3px black;
 
 
     
@@ -31,13 +41,14 @@
     
 }
 #time{
-    font-size: 15pt;
+    font-size: 1.25vw;
     position : fixed;
     right: 0;
     padding-right: 10px;
     color : white;
+    margin-top: 0;
 
 }
 #icon{
-    height : 100px;
+    height : 8vw;
 }
