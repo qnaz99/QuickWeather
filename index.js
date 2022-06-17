@@ -1,5 +1,17 @@
+//import { createClient } from 'pexels';
+//const {createClient} = require('pexels');
+
+
+const latlonurl = "https://geolocation-db.com/json/";
+const key = '093039fc39a2f45e6c040b180c684fdc';
+const pexelKey = '563492ad6f91700001000001d90704aef5914a938e6fe3789b15da38'
+var lat, lon, weatherurl, iconurl, cityurl, city, backgroundurl;
+var isNight = false;
+
+//const client = createClient(pexelKey);
+
 temp = document.getElementById("temp");
-temp.innerHTML = "loading...";
+temp.innerHTML = "Loading...";
 
 high = document.getElementById("high");
 low = document.getElementById("low");
@@ -17,7 +29,7 @@ sunset = document.getElementById("sunset");
 
 var today = new Date();
 
-console.log();
+
 
 const month = {
     0  : "January",
@@ -35,11 +47,10 @@ const month = {
 };
 
 
-const latlonurl = "https://geolocation-db.com/json/";
-const key = '093039fc39a2f45e6c040b180c684fdc';
 
 
-var lat, lon, weatherurl, iconurl;
+
+
 
 function test(){
     fetch(latlonurl).then((response) => {
@@ -59,9 +70,13 @@ function test(){
             console.log(data);
             iconurl = "https://www.openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
             if (data.weather[0].icon.charAt(2) == 'n'){
-                document.getElementById("ht").style.backgroundColor = "black";
+                isNight = true;
+                //document.getElementById("ht").style.backgroundColor = "black";
 
-                document.getElementById("ht").style.backgroundImage = "url(\"night.png\")";
+                //document.getElementById("ht").style.backgroundSize = "cover";
+
+
+                //document.getElementById("ht").style.background = "linear-gradient(to top, #283E51, #0A2342)";
             }
             temp.innerHTML =   parseInt(data.main.temp     - 273.15) + "°, " + data.weather[0].description;
             high.innerHTML =   "Expected high: "    + parseInt(data.main.temp_max   - 273.15) + "°";
@@ -84,6 +99,40 @@ function test(){
             sunset.innerHTML  = "Sunset: "  + dateset.getHours()  + ":" + String(dateset.getMinutes()).padStart(2, '0') + " PM";
             icon.src = iconurl;
             icon.alt = data.weather[0].main;
+            cityurl = 'https://nominatim.openstreetmap.org/reverse?lat=' + lat + '&lon=' + lon + '&format=json&zoom=10';
+
+
+            fetch(cityurl).then((cityData) => {
+                return cityData.json();
+            })
+            .then((data) => {
+                //console.log(data);
+                city = data.address.city;
+                console.log(city);
+
+                if (!isNight){
+                    searchUrl = 'https://api.pexels.com/v1/search?query=' + city + '&per_page=1'
+                }
+                else{
+                    searchUrl = 'https://api.pexels.com/v1/search?query=' + city + ' Night&per_page=1'
+                }
+                
+                fetch (searchUrl,{ method: 'GET', headers: {Accept: 'application/json', Authorization: pexelKey}}).then((backgroundData) =>{
+                    return backgroundData.json();
+                }).then((imageData) => {
+                    console.log(imageData);
+                    
+                    backgroundurl = imageData.photos[0].src.original;
+                    document.getElementById("ht").style.backgroundImage = "url(" + backgroundurl +")";
+                    document.getElementById("ht").style.backgroundSize = "cover";
+                    document.getElementById("ht").style.backgroundRepeat = "no-repeat";
+
+                    
+                });
+                //client.photos.search({ city, per_page: 1}).then((backgroundData) =>{
+                //    console.log(backgroundData);
+                //})
+            })
         })
     })
 }
