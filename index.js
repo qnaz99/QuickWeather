@@ -110,6 +110,7 @@ function test(){
                 //console.log(data);
                 city = data.address.city;
                 console.log(city);
+                loc.innerHTML = city;
 
                 if (!isNight){
                     if(window.innerHeight > window.innerWidth){
