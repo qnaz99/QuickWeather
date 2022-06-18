@@ -2,7 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@100;200;300;400;500;600;700;800&display=swap');
 
 
-
+body, html {
+    height: 100%;
+    margin: 0;
+}
 .flexcont {
     display: flex;
     flex-direction: row;
@@ -17,12 +20,18 @@
     color : white;
     font-weight: 400;
     margin-bottom: 0;
-    
+}  
 
-    
-    
-
+#ht{
+    z-index: -1;
+    height : 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0;
 }
+
+
 .exp{
     font-size: 4.1vh;
     
@@ -47,7 +56,7 @@
     
     padding-left: 10px;
     color : white;
-    margin-top: 0;
+    margin-top: 10;
 
 }
 
@@ -57,7 +66,7 @@
     right: 0;
     padding-right: 10px;
     color : white;
-    margin-top: 0;
+    margin-top: 10;
 }
 #icon{
     height : 16.1vh;

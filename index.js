@@ -136,8 +136,11 @@ function test(){
                     //console.log(imageData);
                     backgroundurl = imageData.photos[0].src.original;
                     document.getElementById("ht").style.backgroundImage = "url(" + backgroundurl +")";
-                    document.getElementById("ht").style.backgroundSize = "cover";
-                    document.getElementById("ht").style.backgroundRepeat = "no-repeat";
+                    //document.getElementById("ht").style.backgroundSize = "contain";
+                    //document.getElementById("ht").style.height = "100%";
+                    //document.getElementById("ht").style.backgroundRepeat = "no-repeat";
+                    //document.getElementById("ht").style.backgroundPosition = "center";
+
   
                 });
                 //client.photos.search({ city, per_page: 1}).then((backgroundData) =>{
