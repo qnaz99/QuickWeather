@@ -68,7 +68,7 @@ function test(){
             return response.json();
         })
         .then((data) => {
-            console.log(data);
+            //console.log(data);
             iconurl = "https://www.openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
             if (data.weather[0].icon.charAt(2) == 'n'){
                 isNight = true;
@@ -109,7 +109,7 @@ function test(){
             .then((data) => {
                 //console.log(data);
                 city = data.address.city;
-                console.log(city);
+                //console.log(city);
                 loc.innerHTML = city;
 
                 if (!isNight){
