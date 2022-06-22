@@ -22,10 +22,27 @@ time = document.getElementById("time");
 loc = document.getElementById("loc");
 sunrise = document.getElementById("sunrise");
 sunset = document.getElementById("sunset");
+searchIcon = document.getElementById("search-icon");
+searchBar = document.getElementById("search-bar");
 
 
+function showSearch(){
+    console.log("here");
+    searchBar.style.display = "flex";
+    document.getElementById("loc").style.display = "none"
+    searchBar.focus();
+}
 
+searchIcon.addEventListener("click", showSearch);
+document.getElementById("body").addEventListener("click", hideSearch);
 
+function hideSearch(){
+    if(document.activeElement != searchBar){
+        searchBar.style.display = "none";
+        document.getElementById("loc").style.display = "flex"
+    }
+
+}
 
 
 var today = new Date();
@@ -110,7 +127,7 @@ function test(){
                 //console.log(data);
                 city = data.address.city;
                 //console.log(city);
-                loc.innerHTML = city;
+                loc.innerHTML = city ;
 
                 if (!isNight){
                     if(window.innerHeight > window.innerWidth){
