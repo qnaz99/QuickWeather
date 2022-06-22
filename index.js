@@ -32,6 +32,7 @@ function showSearch(){
     console.log("here");
     searchBar.style.display = "flex";
     document.getElementById("loc").style.display = "none"
+    searchIcon.style.display = "none";
     searchBar.focus();
 }
 
@@ -41,7 +42,8 @@ document.getElementById("body").addEventListener("click", hideSearch);
 function hideSearch(){
     if(document.activeElement != searchBar){
         searchBar.style.display = "none";
-        document.getElementById("loc").style.display = "flex"
+        document.getElementById("loc").style.display = "flex";
+        searchIcon.style.display = "flex";
     }
 
 }
