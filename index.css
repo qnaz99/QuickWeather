@@ -22,7 +22,7 @@ body, html {
 #tint{
     position: absolute;
     margin: auto;
-    height: 100vh;
+    height: 100%;
     width: 100vw;
     background-color: #3a3b3c;
     opacity: 0.5;
@@ -31,8 +31,8 @@ body, html {
 #dark-tint{
     position: absolute;
     background-color: black;
-    height: 100vh;
-    width: 50vw;
+    height: 100%;
+    width: 50%;
     opacity: 0.5;
     margin-left: auto;
     margin-right: auto;

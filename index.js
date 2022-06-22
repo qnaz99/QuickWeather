@@ -24,6 +24,8 @@ sunrise = document.getElementById("sunrise");
 sunset = document.getElementById("sunset");
 searchIcon = document.getElementById("search-icon");
 searchBar = document.getElementById("search-bar");
+darkTint = document.getElementById("dark-tint");
+main = document.getElementById("main");
 
 
 function showSearch(){
@@ -64,8 +66,20 @@ const month = {
     11 : "December" 
 };
 
+window.addEventListener("resize", fixTintResize);
 
+function fixTintResize(){
+    //darkTint.style.width = (temp.offsetWidth + window.innerWidth*0.2) + "px";
+    if (window.innerWidth < 650 ){
+        darkTint.style.width = "100%"
+    }
+    else{
+        darkTint.style.width = "50%";
+    }
+    console.log(window.innerWidth);
+}
 
+fixTintResize();
 
 
 
@@ -157,6 +171,9 @@ function test(){
                     //document.getElementById("ht").style.height = "100%";
                     //document.getElementById("ht").style.backgroundRepeat = "no-repeat";
                     //document.getElementById("ht").style.backgroundPosition = "center";
+                    //darkTint.style.width = (temp.offsetWidth + window.innerWidth*0.2) + "px";
+                    //console.log(window.innerWidth)
+
 
   
                 });
