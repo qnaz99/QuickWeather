@@ -100,7 +100,7 @@ function fixTintResize(){
     else{
         darkTint.style.width = "50%";
     }
-    console.log(window.innerWidth);
+    //console.log(window.innerWidth);
 }
 
 fixTintResize();
@@ -112,13 +112,13 @@ fixTintResize();
 searchBar.addEventListener('input', searchCityPrefix);
 
 function searchCityPrefix(){
-    console.log(searchBar.value);
+    //console.log(searchBar.value);
     if (searchBar.value.length > 2){
         searchResults.style.display = "block";
         fetch('https://wft-geo-db.p.rapidapi.com//v1/geo/cities?limit=5&offset=0&sort=-population&namePrefix=' + searchBar.value, options)
 	    .then(response => response.json())
 	    .then(response => {
-		    console.log(response);
+		   //console.log(response);
             //console.log(response.data.length)
             for (let i = 0; i < response.data.length; i++){
                 resultNumber = 'result' + i;
@@ -134,6 +134,7 @@ function searchCityPrefix(){
 }
 
 function clickedSearchResult(){
+    searchBar.value = "";
     const newWeather = { 
         city:    this.city,
         country: this.country,
@@ -235,7 +236,7 @@ function getWeather(searchedCity){
             return response.json();
         })
         .then((data) => { 
-            console.log(data);
+            //console.log(data);
 
             iconurl = "https://www.openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
             if (data.weather[0].icon.charAt(2) == 'n'){
@@ -254,7 +255,7 @@ function getWeather(searchedCity){
             var dateset  = new Date(unixset  * 1000);
             sunrise.innerHTML = "Sunrise: " + daterise.getHours() + ":" + String(daterise.getMinutes()).padStart(2, '0') + " AM";
             sunset.innerHTML  = "Sunset: "  + dateset.getHours()  + ":" + String(dateset.getMinutes()).padStart(2, '0') + " PM";
-            console.log(dateset.getHours());
+            //console.log(dateset.getHours());
             icon.src = iconurl;
             icon.alt = data.weather[0].main;
 
