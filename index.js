@@ -118,7 +118,7 @@ function searchCityPrefix(){
         fetch('https://wft-geo-db.p.rapidapi.com//v1/geo/cities?limit=5&offset=0&sort=-population&namePrefix=' + searchBar.value, options)
 	    .then(response => response.json())
 	    .then(response => {
-		   //console.log(response);
+		   console.log(response);
             //console.log(response.data.length)
             for (let i = 0; i < response.data.length; i++){
                 resultNumber = 'result' + i;
