@@ -1,6 +1,7 @@
 const latlonurl = "https://geolocation-db.com/json/";
 const openWeatherKey = '093039fc39a2f45e6c040b180c684fdc';
 const pexelKey = '563492ad6f91700001000001d90704aef5914a938e6fe3789b15da38'
+const timeKey = 'LYSSQ9S7P98P';
 var lat, lon, weatherurl, iconurl, cityurl, city, backgroundurl;
 var isNight = false;
 
@@ -48,6 +49,21 @@ const month = {
     9  : "October",
     10 : "November",
     11 : "December" 
+};
+
+const fetchedMonth = {
+    "01"  : "January",
+    "02"  : "February",
+    "03"  : "March",
+    "04"  : "April",
+    "05"  : "May",
+    "06"  : "June",
+    "07"  : "July",
+    "08"  : "August",
+    "09"  : "September",
+    "10"  : "October",
+    "11" : "November",
+    "12" : "December" 
 };
 
 
@@ -118,7 +134,7 @@ function searchCityPrefix(){
         fetch('https://wft-geo-db.p.rapidapi.com//v1/geo/cities?limit=5&offset=0&sort=-population&namePrefix=' + searchBar.value, options)
 	    .then(response => response.json())
 	    .then(response => {
-		   console.log(response);
+		    //console.log(response);
             //console.log(response.data.length)
             for (let i = 0; i < response.data.length; i++){
                 resultNumber = 'result' + i;
@@ -230,6 +246,10 @@ function getWeather(searchedCity){
     else {
         //console.log(searchedCity.country);
         //document.body.innerHTML = "";
+
+
+
+
         weatherurl = 'https://api.openweathermap.org/data/2.5/weather?lat=' + searchedCity.lat + '&lon=' + searchedCity.long + '&appid=' + openWeatherKey;
 
         fetch(weatherurl).then((response) => {
@@ -288,6 +308,23 @@ function getWeather(searchedCity){
             });
 
 
+            fetch('http://api.timezonedb.com/v2.1/get-time-zone?by=position&lat=' + searchedCity.lat + '&lng=' + searchedCity.long + '&key=' + timeKey + '&format=json').then((response) => {
+                //console.log(response);
+                return (response.json());
+            })
+            .then((data) => { 
+                formattedTimeString = data.formatted;
+                currentTime = formattedTimeString.substring(11,16);
+                currentMonth = formattedTimeString.substring(5,7)
+                currentYear = formattedTimeString.substring(0,4);
+                currentDate = formattedTimeString.substring(8,10);
+                //console.log(currentMonth); 
+                //console.log(fetchedMonth[currentMonth]);
+                time.innerHTML =   fetchedMonth[currentMonth] + " " + currentDate + " " + currentYear + " | " + currentTime;
+            })
+
+
+
         })
 
     }
@@ -299,3 +336,5 @@ function getWeather(searchedCity){
 
 
 getWeather(null);
+
+//http://api.geonames.org/timezone?lat=47.01&lng=10.2&username=demo
