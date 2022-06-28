@@ -308,7 +308,7 @@ function getWeather(searchedCity){
             });
 
 
-            fetch('http://api.timezonedb.com/v2.1/get-time-zone?by=position&lat=' + searchedCity.lat + '&lng=' + searchedCity.long + '&key=' + timeKey + '&format=json').then((response) => {
+            fetch('https://api.timezonedb.com/v2.1/get-time-zone?by=position&lat=' + searchedCity.lat + '&lng=' + searchedCity.long + '&key=' + timeKey + '&format=json').then((response) => {
                 //console.log(response);
                 return (response.json());
             })
