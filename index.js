@@ -102,6 +102,7 @@ function hideSearch(){
     }
 }
 //************************************************************************************************
+//
 
 
 
@@ -337,4 +338,4 @@ function getWeather(searchedCity){
 
 getWeather(null);
 
-//http://api.geonames.org/timezone?lat=47.01&lng=10.2&username=demo
+//http://api.geonames.org/timezone?lat=47.01&lng=10.2&username=demo TODO: delete
