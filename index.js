@@ -70,21 +70,18 @@ const fetchedMonth = {
 
 
 
-//***event listener + function to change css to show search bar when search icon is clicked***
+// event listener + function to change css to show search bar when search icon is clicked
 searchIcon.addEventListener("click", showSearch);
 
-function showSearch(){
-    //console.log("here");
-    
+function showSearch(){    
     searchBar.style.display = "flex";
     document.getElementById("loc").style.display = "none"
     searchIcon.style.display = "none";
     searchBar.focus();
 }
-//************************************************************************************************
 
 
-//***event listener + function to hide search bar on click-away
+// event listener + function to hide search bar on click-away
 document.getElementById("body").addEventListener("click", hideSearch);
 
 function hideSearch(){
@@ -101,8 +98,7 @@ function hideSearch(){
 
     }
 }
-//************************************************************************************************
-//
+
 
 
 
@@ -117,34 +113,31 @@ function fixTintResize(){
     else{
         darkTint.style.width = "50%";
     }
-    //console.log(window.innerWidth);
 }
 
 fixTintResize();
 
-
-
-
-
+var timeLastSearched = Date.now();
 searchBar.addEventListener('input', searchCityPrefix);
 
 function searchCityPrefix(){
-    //console.log(searchBar.value);
-    if (searchBar.value.length > 2){
+    if (searchBar.value.length > 2 && (Date.now() - timeLastSearched) > 1500){
+        timeLastSearched = Date.now();
         searchResults.style.display = "block";
-        fetch('https://wft-geo-db.p.rapidapi.com//v1/geo/cities?limit=5&offset=0&sort=-population&namePrefix=' + searchBar.value, options)
+        fetch('https://wft-geo-db.p.rapidapi.com/v1/geo/cities?limit=5&sort=-population&namePrefix=' + searchBar.value, options)
 	    .then(response => response.json())
 	    .then(response => {
-		    //console.log(response);
-            //console.log(response.data.length)
-            for (let i = 0; i < response.data.length; i++){
-                resultNumber = 'result' + i;
-                document.getElementById(resultNumber).innerHTML = response.data[i].city + ", " + response.data[i].country;
-                document.getElementById(resultNumber).city = response.data[i].city;
-                document.getElementById(resultNumber).lat  = response.data[i].latitude;
-                document.getElementById(resultNumber).long  = response.data[i].longitude;
-                document.getElementById(resultNumber).country  = response.data[i].country;
-                document.getElementById(resultNumber).addEventListener("click", clickedSearchResult)
+            if(response.data.length){
+                timeLastSearched = Date.now();
+                for (let i = 0; i < response.data.length; i++){
+                    resultNumber = 'result' + i;
+                    document.getElementById(resultNumber).innerHTML = response.data[i].city + ", " + response.data[i].country;
+                    document.getElementById(resultNumber).city = response.data[i].city;
+                    document.getElementById(resultNumber).lat  = response.data[i].latitude;
+                    document.getElementById(resultNumber).long  = response.data[i].longitude;
+                    document.getElementById(resultNumber).country  = response.data[i].country;
+                    document.getElementById(resultNumber).addEventListener("click", clickedSearchResult)
+                }
             }
 	    })
     }
@@ -171,14 +164,12 @@ function getWeather(searchedCity){
             lat = data.latitude;
             lon = data.longitude;
             weatherurl = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&appid=' + openWeatherKey;
-            //temp.innerHTML = lat;    
         })
         .then(() => {
             fetch(weatherurl).then((response) => {
                 return response.json();
             })
             .then((data) => {
-                //console.log(data);
                 iconurl = "https://www.openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
                 if (data.weather[0].icon.charAt(2) == 'n'){
                     isNight = true;
@@ -205,9 +196,7 @@ function getWeather(searchedCity){
                     return cityData.json();
                 })
                 .then((data) => {
-                    //console.log(data);
                     city = data.address.city;
-                    //console.log(city);
                     loc.innerHTML = city ;
 
                     if (!isNight){
@@ -231,7 +220,6 @@ function getWeather(searchedCity){
                     fetch (searchUrl,{ method: 'GET', headers: {Accept: 'application/json', Authorization: pexelKey}}).then((backgroundData) =>{
                         return backgroundData.json();
                     }).then((imageData) => {
-                        //console.log(imageData);
                         backgroundurl = imageData.photos[0].src.original;
                         document.getElementById("ht").style.backgroundImage = "url(" + backgroundurl +")";
                     });
@@ -245,20 +233,12 @@ function getWeather(searchedCity){
         });
     }
     else {
-        //console.log(searchedCity.country);
-        //document.body.innerHTML = "";
-
-
-
-
         weatherurl = 'https://api.openweathermap.org/data/2.5/weather?lat=' + searchedCity.lat + '&lon=' + searchedCity.long + '&appid=' + openWeatherKey;
 
         fetch(weatherurl).then((response) => {
             return response.json();
         })
         .then((data) => { 
-            //console.log(data);
-
             iconurl = "https://www.openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png"
             if (data.weather[0].icon.charAt(2) == 'n'){
                 isNight = true;
@@ -276,7 +256,6 @@ function getWeather(searchedCity){
             var dateset  = new Date(unixset  * 1000);
             sunrise.innerHTML = "Sunrise: " + daterise.getHours() + ":" + String(daterise.getMinutes()).padStart(2, '0') + " AM";
             sunset.innerHTML  = "Sunset: "  + dateset.getHours()  + ":" + String(dateset.getMinutes()).padStart(2, '0') + " PM";
-            //console.log(dateset.getHours());
             icon.src = iconurl;
             icon.alt = data.weather[0].main;
 
@@ -303,14 +282,12 @@ function getWeather(searchedCity){
             fetch (searchUrl,{ method: 'GET', headers: {Accept: 'application/json', Authorization: pexelKey}}).then((backgroundData) =>{
                 return backgroundData.json();
             }).then((imageData) => {
-                //console.log(imageData);
                 backgroundurl = imageData.photos[0].src.original;
                 document.getElementById("ht").style.backgroundImage = "url(" + backgroundurl +")";
             });
 
 
             fetch('https://api.timezonedb.com/v2.1/get-time-zone?by=position&lat=' + searchedCity.lat + '&lng=' + searchedCity.long + '&key=' + timeKey + '&format=json').then((response) => {
-                //console.log(response);
                 return (response.json());
             })
             .then((data) => { 
@@ -319,23 +296,11 @@ function getWeather(searchedCity){
                 currentMonth = formattedTimeString.substring(5,7)
                 currentYear = formattedTimeString.substring(0,4);
                 currentDate = formattedTimeString.substring(8,10);
-                //console.log(currentMonth); 
-                //console.log(fetchedMonth[currentMonth]);
                 time.innerHTML =   fetchedMonth[currentMonth] + " " + currentDate + " " + currentYear + " | " + currentTime;
             })
-
-
-
         })
 
     }
-    
-
-    
 }
 
-
-
 getWeather(null);
-
-//http://api.geonames.org/timezone?lat=47.01&lng=10.2&username=demo TODO: delete
